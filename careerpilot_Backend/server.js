@@ -14,6 +14,8 @@ const jobRoutes = require("./routes/jobRoutes");
 
 connectDB();
 
+const app = express();
+
 const corsOptions = {
   origin: process.env.FRONTEND_URL || '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
