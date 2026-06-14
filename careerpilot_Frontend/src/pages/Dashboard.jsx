@@ -180,10 +180,6 @@ export default function Dashboard() {
         </div>
 
         <div className="mb-8">
-          <ReminderCard jobs={jobs} />
-        </div>
-
-        <div className="mb-8">
           {!loading && (
             <JobTracker
               jobs={jobs}

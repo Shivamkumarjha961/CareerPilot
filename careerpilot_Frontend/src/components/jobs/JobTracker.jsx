@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../config';
 import JobCard from './JobCard';
+import ReminderCard from '../dashboard/ReminderCard';
 
 export default function JobTracker({
   jobs,
@@ -142,17 +143,26 @@ export default function JobTracker({
         </button>
       </div>
 
+      <ReminderCard jobs={jobs} />
+
+      <h2 className="text-xl font-semibold mb-4 text-slate-800">Job List</h2>
       <div className="grid gap-5">
-        {sortedJobs.map((job) => (
-          <JobCard
-            key={job._id}
-            job={job}
-            onDelete={() => deleteJob(job._id)}
-            onUpdate={(newStatus) =>
-              updateStatus(job._id, newStatus)
-            }
-          />
-        ))}
+        {sortedJobs.length > 0 ? (
+          sortedJobs.map((job) => (
+            <JobCard
+              key={job._id}
+              job={job}
+              onDelete={() => deleteJob(job._id)}
+              onUpdate={(newStatus) =>
+                updateStatus(job._id, newStatus)
+              }
+            />
+          ))
+        ) : (
+          <p className="text-center text-slate-500 py-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+            No jobs available. Please add a job.
+          </p>
+        )}
       </div>
     </div>
   );
