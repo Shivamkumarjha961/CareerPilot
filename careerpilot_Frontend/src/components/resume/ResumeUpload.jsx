@@ -195,6 +195,21 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
         )}
       </div>
 
+      {/* Loading Skeleton */}
+      {loading && (
+        <div className="mt-6 pt-5 border-t border-slate-100 space-y-4 animate-pulse">
+          <div className="flex justify-between items-center bg-slate-50/80 p-3.5 rounded-xl border border-slate-100/60 h-10">
+            <div className="h-3 bg-slate-200 rounded w-1/4" />
+            <div className="h-3 bg-slate-200 rounded w-10" />
+          </div>
+          <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-100/60 space-y-2.5">
+            <div className="h-2.5 bg-slate-200 rounded w-1/3" />
+            <div className="h-2 bg-slate-200 rounded w-full" />
+            <div className="h-2 bg-slate-200 rounded w-5/6" />
+          </div>
+        </div>
+      )}
+
       {result && (
         <div className="mt-6 pt-5 border-t border-slate-100 space-y-4 animate-slideUp">
           <div className="flex justify-between items-center bg-slate-50/80 p-3 rounded-xl border border-slate-100/60">

@@ -7,6 +7,7 @@ import ReminderCard from '../dashboard/ReminderCard';
 export default function JobTracker({
   jobs,
   refreshJobs,
+  loading,
 }) {
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
@@ -158,7 +159,36 @@ export default function JobTracker({
           Job Applications ({sortedJobs.length})
         </h3>
         <div className="grid gap-3.5">
-          {sortedJobs.length > 0 ? (
+          {loading ? (
+            <>
+              <div className="bg-white p-4.5 rounded-2xl border border-slate-100 flex justify-between items-center animate-pulse">
+                <div className="flex items-center gap-4.5">
+                  <div className="w-11 h-11 bg-slate-200 rounded-full shrink-0" />
+                  <div className="space-y-2">
+                    <div className="h-3.5 bg-slate-200 rounded w-28" />
+                    <div className="h-2.5 bg-slate-200 rounded w-20" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-4.5">
+                  <div className="h-3.5 bg-slate-200 rounded w-16 hidden sm:block" />
+                  <div className="h-6 bg-slate-250 rounded-full w-16" />
+                </div>
+              </div>
+              <div className="bg-white p-4.5 rounded-2xl border border-slate-100 flex justify-between items-center animate-pulse">
+                <div className="flex items-center gap-4.5">
+                  <div className="w-11 h-11 bg-slate-200 rounded-full shrink-0" />
+                  <div className="space-y-2">
+                    <div className="h-3.5 bg-slate-200 rounded w-24" />
+                    <div className="h-2.5 bg-slate-200 rounded w-16" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-4.5">
+                  <div className="h-3.5 bg-slate-200 rounded w-16 hidden sm:block" />
+                  <div className="h-6 bg-slate-250 rounded-full w-16" />
+                </div>
+              </div>
+            </>
+          ) : sortedJobs.length > 0 ? (
             sortedJobs.map((job) => (
               <JobCard
                 key={job._id}

@@ -66,9 +66,27 @@ export default function AISuggestions({ resumeText, githubData }) {
 
         {loading ? (
           <div className="space-y-3 pt-2">
-            <div className="h-10 bg-slate-50 border border-slate-100 rounded-xl animate-pulse" />
-            <div className="h-10 bg-slate-50 border border-slate-100 rounded-xl animate-pulse" />
-            <div className="h-10 bg-slate-50 border border-slate-100 rounded-xl animate-pulse" />
+            <div className="bg-slate-50/50 p-3 rounded-2xl border border-slate-100/60 flex gap-2.5 items-start animate-pulse">
+              <div className="w-6 h-6 rounded-lg bg-slate-200 shrink-0" />
+              <div className="space-y-2 flex-1 pt-1">
+                <div className="h-2 bg-slate-200 rounded w-full" />
+                <div className="h-2 bg-slate-200 rounded w-2/3" />
+              </div>
+            </div>
+            <div className="bg-slate-50/50 p-3 rounded-2xl border border-slate-100/60 flex gap-2.5 items-start animate-pulse">
+              <div className="w-6 h-6 rounded-lg bg-slate-200 shrink-0" />
+              <div className="space-y-2 flex-1 pt-1">
+                <div className="h-2 bg-slate-200 rounded w-full" />
+                <div className="h-2 bg-slate-200 rounded w-1/2" />
+              </div>
+            </div>
+            <div className="bg-slate-50/50 p-3 rounded-2xl border border-slate-100/60 flex gap-2.5 items-start animate-pulse">
+              <div className="w-6 h-6 rounded-lg bg-slate-200 shrink-0" />
+              <div className="space-y-2 flex-1 pt-1">
+                <div className="h-2 bg-slate-200 rounded w-5/6" />
+                <div className="h-2 bg-slate-200 rounded w-1/3" />
+              </div>
+            </div>
           </div>
         ) : cleanSuggestions.length > 0 ? (
           <div className="space-y-3 pt-1 max-h-[200px] overflow-y-auto pr-1">

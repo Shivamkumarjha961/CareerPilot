@@ -2,11 +2,11 @@ import { Calendar, Trash2 } from 'lucide-react';
 
 export default function JobCard({ job, onDelete, onUpdate }) {
   const statusColor = {
-    Pending: 'bg-amber-50 text-amber-750 border-amber-100/70 focus:ring-amber-200/40',
-    Applied: 'bg-blue-50 text-blue-750 border-blue-100/70 focus:ring-blue-200/40',
-    Interview: 'bg-purple-50 text-purple-750 border-purple-100/70 focus:ring-purple-200/40',
-    Selected: 'bg-emerald-50 text-emerald-750 border-emerald-100/70 focus:ring-emerald-200/40',
-    Rejected: 'bg-rose-50 text-rose-750 border-rose-100/70 focus:ring-rose-200/40',
+    Pending: 'bg-amber-100 text-amber-900 border-amber-200 focus:ring-amber-200/40',
+    Applied: 'bg-blue-600 text-white border-blue-600 focus:ring-blue-300/40',
+    Interview: 'bg-purple-600 text-white border-purple-600 focus:ring-purple-300/40',
+    Selected: 'bg-emerald-600 text-white border-emerald-600 focus:ring-emerald-300/40',
+    Rejected: 'bg-rose-600 text-white border-rose-600 focus:ring-rose-300/40',
   };
 
   const getLogo = (company) => {
@@ -17,7 +17,7 @@ export default function JobCard({ job, onDelete, onUpdate }) {
       'bg-blue-50/70 text-blue-600 border-blue-100/40',
       'bg-indigo-50/70 text-indigo-600 border-indigo-100/40',
       'bg-purple-50/70 text-purple-600 border-purple-100/40',
-      'bg-sky-50/70 text-sky-650 border-sky-100/40',
+      'bg-sky-50/70 text-sky-655 border-sky-100/40',
       'bg-cyan-50/70 text-cyan-600 border-cyan-100/40'
     ];
     return {
@@ -44,10 +44,10 @@ export default function JobCard({ job, onDelete, onUpdate }) {
   };
 
   return (
-    <div className="bg-white p-4.5 rounded-2xl border border-slate-100/80 hover:shadow-md hover:border-slate-200/60 transition-all duration-300 flex justify-between items-center group">
+    <div className="bg-white p-5 rounded-2xl border border-slate-100/80 hover:shadow-md hover:border-slate-200/60 transition-all duration-300 flex justify-between items-center group">
       <div className="flex items-center gap-4.5">
         {/* Dynamic Logo Circle */}
-        <div className={`w-11 h-11 flex items-center justify-center rounded-full border text-sm font-black shrink-0 shadow-sm ${logoDetails.colorClass}`}>
+        <div className={`w-12 h-12 flex items-center justify-center rounded-full border text-sm font-black shrink-0 shadow-sm ${logoDetails.colorClass}`}>
           {logoDetails.char}
         </div>
         <div>
@@ -70,11 +70,11 @@ export default function JobCard({ job, onDelete, onUpdate }) {
               statusColor[job.status] || 'bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
-            <option value="Pending">Pending</option>
-            <option value="Applied">Applied</option>
-            <option value="Interview">Interview</option>
-            <option value="Selected">Selected</option>
-            <option value="Rejected">Rejected</option>
+            <option value="Pending" className="text-slate-800 bg-white font-medium">Pending</option>
+            <option value="Applied" className="text-slate-800 bg-white font-medium">Applied</option>
+            <option value="Interview" className="text-slate-800 bg-white font-medium">Interview</option>
+            <option value="Selected" className="text-slate-800 bg-white font-medium">Selected</option>
+            <option value="Rejected" className="text-slate-800 bg-white font-medium">Rejected</option>
           </select>
 
           <button
