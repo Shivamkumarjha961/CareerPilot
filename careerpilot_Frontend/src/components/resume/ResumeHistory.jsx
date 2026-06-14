@@ -1,154 +1,171 @@
 import { useEffect, useState } from 'react';
-import { API_URL, BASE_URL } from '../../config';
+import { API_URL } from '../../config';
+import { FileText, Download, Eye, Trash2, Calendar, Award } from 'lucide-react';
 
 export default function ResumeHistory() {
   const [resumes, setResumes] = useState([]);
   const [selectedResume, setSelectedResume] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchResumeHistory();
   }, []);
 
   const fetchResumeHistory = async () => {
+    setLoading(true);
     try {
-      const storedUser = JSON.parse(
-        localStorage.getItem('loggedInUser')
-      );
+      const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      if (!storedUser || !storedUser.id) return;
 
-      const response = await fetch(
-        `${API_URL}/resume/${storedUser.id}`
-      );
-
+      const response = await fetch(`${API_URL}/resume/${storedUser.id}`);
       const data = await response.json();
-
-      setResumes(data);
-
+      setResumes(Array.isArray(data) ? data : []);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteResume = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this resume?')) return;
     try {
-      await fetch(
-        `${API_URL}/resume/${id}`,
-        {
-          method: 'DELETE',
-        }
-      );
-
+      await fetch(`${API_URL}/resume/${id}`, {
+        method: 'DELETE',
+      });
       fetchResumeHistory();
-
     } catch (error) {
       console.log(error);
     }
   };
 
-  const highestScore = Math.max(
-    ...resumes.map((r) => r.atsScore),
-    0
-  );
+  const highestScore = Math.max(...resumes.map((r) => r.atsScore || 0), 0);
 
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-100 relative">
-      <h2 className="font-semibold mb-4 text-xl">
-        Uploaded Resumes
-      </h2>
+    <div className="bg-white p-6 rounded-3xl shadow-md border border-slate-100/80 hover:shadow-lg transition-all duration-300">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+          <FileText className="w-5 h-5" />
+        </div>
+        <div>
+          <h2 className="font-bold text-base text-slate-800">Resume History</h2>
+          <p className="text-xs text-slate-400">Previous ATS scans and files</p>
+        </div>
+      </div>
 
-      {resumes.length > 0 ? (
-        resumes.map((resume, index) => (
-          <div
-            key={resume._id}
-            className="border-b pb-4 mb-4"
-          >
-            <div className="flex justify-between">
-              <p className="font-medium text-sm">
-                {resume.fileName}
-              </p>
+      {loading ? (
+        <div className="text-center py-6 text-xs text-slate-400">Loading history...</div>
+      ) : resumes.length > 0 ? (
+        <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1">
+          {resumes.map((resume, index) => (
+            <div
+              key={resume._id}
+              className="bg-slate-50/50 hover:bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:border-slate-200 transition-all duration-200 flex flex-col justify-between gap-3"
+            >
+              <div className="flex justify-between items-start gap-4">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-bold text-xs text-slate-800 truncate max-w-[180px]">
+                      {resume.fileName}
+                    </p>
+                    {index === 0 && (
+                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                        Latest
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-[11px] font-semibold text-slate-500">
+                      ATS Match: <span className="font-bold text-slate-800">{resume.atsScore}%</span>
+                    </span>
+                    {resume.atsScore === highestScore && highestScore > 0 && (
+                      <span className="text-[9px] font-bold text-emerald-600 flex items-center gap-0.5">
+                        <Award className="w-3 h-3" />
+                        <span>Best</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
 
-              {index === 0 && (
-                <span className="text-xs bg-blue-100 px-2 py-1 rounded-full">
-                  Latest
+                <div className="flex gap-1">
+                  {/* Preview */}
+                  <button
+                    onClick={() => setSelectedResume(resume)}
+                    className="p-2 text-slate-450 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
+                    title="Preview PDF"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </button>
+
+                  {/* Download */}
+                  <a
+                    href={`${API_URL}/resume/file/${resume._id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-slate-450 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-200"
+                    title="Download PDF"
+                  >
+                    <Download className="w-4 h-4" />
+                  </a>
+
+                  {/* Delete */}
+                  <button
+                    onClick={() => deleteResume(resume._id)}
+                    className="p-2 text-slate-450 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all duration-200"
+                    title="Delete"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-slate-400 mt-0.5">
+                <Calendar className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-semibold">
+                  {new Date(resume.createdAt).toLocaleDateString(undefined, {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
                 </span>
-              )}
-            </div>
-
-            <p className="text-sm mt-1">
-              ATS Score: {resume.atsScore}
-
-              {resume.atsScore === highestScore && (
-                <span className="ml-2 text-green-600 text-xs">
-                  Top Score
-                </span>
-              )}
-            </p>
-
-            <div className="flex justify-between mt-3">
-              <p className="text-xs text-slate-400">
-                {new Date(
-                  resume.createdAt
-                ).toLocaleDateString()}
-              </p>
-
-              <div className="flex gap-3">
-
-                {/* ✅ PDF Preview */}
-                <button
-                  onClick={() =>
-                    setSelectedResume(resume)
-                  }
-                  className="text-blue-500 text-xs"
-                >
-                  Preview
-                </button>
-
-                {/* ✅ PDF Download */}
-                <a
-                  href={`${BASE_URL}/${resume.filePath}`}
-                  download
-                  className="text-green-600 text-xs"
-                >
-                  Download
-                </a>
-
-                {/* ✅ Delete */}
-                <button
-                  onClick={() =>
-                    deleteResume(resume._id)
-                  }
-                  className="text-red-500 text-xs"
-                >
-                  Delete
-                </button>
               </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       ) : (
-        <p>No resumes uploaded yet</p>
+        <div className="text-center py-12 bg-slate-50/50 border border-dashed border-slate-200 rounded-2xl">
+          <p className="text-xs font-semibold text-slate-450">No resumes uploaded yet</p>
+        </div>
       )}
 
-      {/* ✅ Full PDF Preview Modal */}
+      {/* Full PDF Preview Modal */}
       {selectedResume && (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-          <div className="bg-white p-4 rounded-2xl w-[80%] h-[80vh] shadow-xl relative">
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fadeIn">
+          <div className="bg-white rounded-3xl w-full max-w-4xl h-[85vh] shadow-2xl relative flex flex-col overflow-hidden animate-slideUp">
+            <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <FileText className="w-5 h-5 text-blue-500" />
+                <h3 className="font-bold text-sm text-slate-800 truncate max-w-[300px]">
+                  {selectedResume.fileName}
+                </h3>
+              </div>
+              <button
+                onClick={() => setSelectedResume(null)}
+                className="bg-slate-950 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200"
+              >
+                Close Preview
+              </button>
+            </div>
 
-            <iframe
-              src={`${BASE_URL}/${selectedResume.filePath}`}
-              width="100%"
-              height="100%"
-              className="rounded"
-              title="Resume Preview"
-            />
-
-            <button
-              onClick={() =>
-                setSelectedResume(null)
-              }
-              className="absolute top-3 right-3 bg-black text-white px-3 py-1 rounded-lg"
-            >
-              Close
-            </button>
+            <div className="flex-1 bg-slate-100">
+              <iframe
+                src={`${API_URL}/resume/file/${selectedResume._id}`}
+                width="100%"
+                height="100%"
+                className="border-none"
+                title="Resume Preview"
+              />
+            </div>
           </div>
         </div>
       )}
