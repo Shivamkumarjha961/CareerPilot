@@ -180,7 +180,7 @@ export default function Dashboard() {
         </div>
 
         <div className="mb-8">
-          <ReminderCard />
+          <ReminderCard jobs={jobs} />
         </div>
 
         <div className="mb-8">

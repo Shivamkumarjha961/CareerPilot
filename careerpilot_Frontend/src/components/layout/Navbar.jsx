@@ -40,11 +40,15 @@ export default function Navbar({ jobs }) {
 
           {showNotification && (
             <div className="absolute right-0 mt-3 bg-white shadow-lg rounded-xl p-4 w-72 z-50">
-              {jobs.slice(0, 3).map((job, index) => (
-                <p key={index} className="text-sm mb-2">
-                  🔔 {job.company} - {job.role}
-                </p>
-              ))}
+              {jobs && jobs.length > 0 ? (
+                jobs.slice(0, 3).map((job, index) => (
+                  <p key={index} className="text-sm mb-2">
+                    🔔 {job.company} - {job.role}
+                  </p>
+                ))
+              ) : (
+                <p className="text-sm text-slate-500">No new notifications</p>
+              )}
             </div>
           )}
         </div>
