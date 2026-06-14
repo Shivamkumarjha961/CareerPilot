@@ -16,6 +16,7 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
 
     setLoading(true);
     setStatus({ type: '', text: '' });
+    setData(null);
 
     try {
       const storedUser = localStorage.getItem('loggedInUser');
@@ -57,39 +58,39 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
+    <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full min-h-[380px]">
       <div>
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-5">
           <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
-            <Github className="w-6 h-6" />
+            <Github className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-semibold text-lg text-slate-800">GitHub Evaluation</h2>
-            <p className="text-xs text-slate-400">Analyze repository and follower statistics</p>
+            <h2 className="font-bold text-base text-slate-800">GitHub Evaluation</h2>
+            <p className="text-xs text-slate-400">Analyze repo/follower stats</p>
           </div>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label className="block text-[10px] font-bold text-slate-450 uppercase tracking-wider mb-2">
               GitHub Profile Name
             </label>
             <div className="relative">
               <input
-                className="w-full border border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200/50 p-3 pl-10 rounded-xl outline-none text-sm transition-all text-slate-800 placeholder:text-slate-400"
+                className="w-full border border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200/50 p-2.5 pl-9 rounded-xl outline-none text-xs transition-all text-slate-855 placeholder:text-slate-400"
                 placeholder="e.g. torvalds"
                 value={github}
                 disabled={loading}
                 onChange={(e) => setGithub(e.target.value)}
               />
-              <Github className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+              <Github className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
             </div>
           </div>
 
           <button
             onClick={handleAnalyze}
             disabled={loading}
-            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm text-sm"
+            className="w-full bg-slate-900 hover:bg-slate-850 text-white font-semibold py-3 rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm text-xs"
           >
             {loading ? (
               <>
@@ -106,8 +107,8 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
           <div
             className={`mt-4 p-3.5 rounded-xl text-xs flex items-start gap-2.5 animate-fadeIn ${
               status.type === 'success'
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-100'
-                : 'bg-rose-50 text-rose-800 border border-rose-100'
+                ? 'bg-emerald-50 text-emerald-800 border border-emerald-100/60'
+                : 'bg-rose-50 text-rose-800 border border-rose-100/60'
             }`}
           >
             {status.type === 'success' ? (
@@ -120,6 +121,24 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
         )}
       </div>
 
+      {/* Loading Skeleton */}
+      {loading && (
+        <div className="mt-6 pt-5 border-t border-slate-100 space-y-4 animate-pulse">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-slate-100 shrink-0" />
+            <div className="space-y-2 flex-1">
+              <div className="h-3 bg-slate-100 rounded w-1/3" />
+              <div className="h-2.5 bg-slate-100 rounded w-1/4" />
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100/50 h-14" />
+            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100/50 h-14" />
+            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100/50 h-14" />
+          </div>
+        </div>
+      )}
+
       {data && (
         <div className="mt-6 pt-5 border-t border-slate-100 space-y-4 animate-slideUp">
           <div className="flex items-center gap-3">
@@ -131,12 +150,12 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
               />
             )}
             <div className="min-w-0">
-              <h3 className="font-semibold text-slate-800 text-sm truncate">@{data.username}</h3>
+              <h3 className="font-bold text-slate-800 text-xs truncate">@{data.username}</h3>
               <a
                 href={data.profile}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-0.5 font-medium"
+                className="text-[10px] text-purple-650 hover:text-purple-700 flex items-center gap-0.5 font-bold mt-0.5"
               >
                 <span>View Profile</span>
                 <ExternalLink className="w-3 h-3" />
@@ -147,18 +166,18 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
           <div className="grid grid-cols-3 gap-2 text-center">
             <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100/50">
               <BookOpen className="w-4 h-4 text-slate-400 mx-auto mb-1" />
-              <p className="text-slate-400 text-[10px] uppercase font-semibold">Repos</p>
-              <p className="font-bold text-slate-800 text-sm mt-0.5">{data.repos}</p>
+              <p className="text-slate-400 text-[9px] uppercase font-bold">Repos</p>
+              <p className="font-extrabold text-slate-800 text-xs mt-0.5">{data.repos}</p>
             </div>
             <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100/50">
               <Users className="w-4 h-4 text-slate-400 mx-auto mb-1" />
-              <p className="text-slate-400 text-[10px] uppercase font-semibold">Followers</p>
-              <p className="font-bold text-slate-800 text-sm mt-0.5">{data.followers}</p>
+              <p className="text-slate-400 text-[9px] uppercase font-bold">Followers</p>
+              <p className="font-extrabold text-slate-800 text-xs mt-0.5">{data.followers}</p>
             </div>
             <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100/50">
               <Users className="w-4 h-4 text-slate-400 mx-auto mb-1" />
-              <p className="text-slate-400 text-[10px] uppercase font-semibold">Following</p>
-              <p className="font-bold text-slate-800 text-sm mt-0.5">{data.following}</p>
+              <p className="text-slate-400 text-[9px] uppercase font-bold">Following</p>
+              <p className="font-extrabold text-slate-800 text-xs mt-0.5">{data.following}</p>
             </div>
           </div>
         </div>

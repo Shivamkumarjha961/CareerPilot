@@ -7,6 +7,7 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [progressStep, setProgressStep] = useState('');
+  const [progressPercent, setProgressPercent] = useState(0);
   const [status, setStatus] = useState({ type: '', text: '' }); // type: 'success' | 'error' | ''
 
   const handleUpload = async () => {
@@ -18,19 +19,21 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
     setLoading(true);
     setStatus({ type: '', text: '' });
     setResult(null);
+    setProgressPercent(5);
 
     // Dynamic progress simulation
     const steps = [
-      { text: 'Uploading Resume...', delay: 0 },
-      { text: 'Extracting Content...', delay: 800 },
-      { text: 'Running ATS Analysis...', delay: 1800 },
-      { text: 'Generating Score...', delay: 2800 }
+      { text: 'Uploading Resume...', percent: 15, delay: 0 },
+      { text: 'Extracting Content...', percent: 45, delay: 800 },
+      { text: 'Running ATS Analysis...', percent: 75, delay: 1800 },
+      { text: 'Generating Score...', percent: 95, delay: 2800 }
     ];
 
     const timers = [];
     steps.forEach(step => {
       const timer = setTimeout(() => {
         setProgressStep(step.text);
+        setProgressPercent(step.percent);
       }, step.delay);
       timers.push(timer);
     });
@@ -62,6 +65,7 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
       const data = await response.json();
 
       if (response.ok) {
+        setProgressPercent(100);
         setProgressStep('Analysis Complete');
         setResult(data);
         setAtsScore(data.atsScore);
@@ -81,6 +85,7 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
     } finally {
       setLoading(false);
       setProgressStep('');
+      setProgressPercent(0);
     }
   };
 
@@ -92,24 +97,24 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
+    <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full min-h-[380px]">
       <div>
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
-            <FileText className="w-6 h-6" />
+        <div className="flex items-center gap-3 mb-5">
+          <div className="p-2 rounded-xl bg-blue-50 text-blue-500">
+            <FileText className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="font-semibold text-lg text-slate-800">Resume ATS Checker</h2>
-            <p className="text-xs text-slate-400">Evaluate your resume for keyword matches</p>
+            <h2 className="font-bold text-base text-slate-800">Resume ATS Checker</h2>
+            <p className="text-xs text-slate-400">Evaluate resume compatibility</p>
           </div>
         </div>
 
         {/* Upload Dropzone */}
         {!file ? (
-          <label className="group flex flex-col items-center justify-center border-2 border-dashed border-slate-200 hover:border-blue-500 rounded-2xl p-6 cursor-pointer bg-slate-50/50 hover:bg-blue-50/10 transition-all duration-200">
-            <UploadCloud className="w-8 h-8 text-slate-400 group-hover:text-blue-500 transition-colors duration-200 mb-2" />
-            <span className="text-sm font-medium text-slate-700">Choose Resume file</span>
-            <span className="text-xs text-slate-400 mt-1">PDF, DOC, DOCX up to 10MB</span>
+          <label className="group flex flex-col items-center justify-center border border-dashed border-slate-200 hover:border-blue-500 rounded-2xl p-7 cursor-pointer bg-slate-50/50 hover:bg-blue-50/5 transition-all duration-200">
+            <UploadCloud className="w-7 h-7 text-slate-400 group-hover:text-blue-550 transition-colors duration-200 mb-2" />
+            <span className="text-xs font-bold text-slate-700">Choose Resume file</span>
+            <span className="text-[10px] text-slate-400 mt-1">PDF, DOC, DOCX up to 10MB</span>
             <input
               type="file"
               accept=".pdf,.doc,.docx"
@@ -118,11 +123,11 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
             />
           </label>
         ) : (
-          <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-150 rounded-2xl animate-fadeIn">
+          <div className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-100 rounded-2xl animate-fadeIn">
             <div className="flex items-center gap-2.5 min-w-0">
-              <FileText className="w-5 h-5 text-blue-500 shrink-0" />
+              <FileText className="w-4 h-4 text-blue-500 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-800 truncate">{file.name}</p>
+                <p className="text-xs font-bold text-slate-800 truncate">{file.name}</p>
                 <p className="text-[10px] text-slate-400">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
               </div>
             </div>
@@ -136,22 +141,39 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
           </div>
         )}
 
-        {/* Submit button */}
+        {/* Submit / Progress button */}
         {file && (
-          <button
-            onClick={handleUpload}
-            disabled={loading}
-            className="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm text-sm"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>{progressStep || 'Analyzing Resume...'}</span>
-              </>
-            ) : (
-              <span>Upload & Analyze</span>
+          <div className="mt-4 space-y-3">
+            <button
+              onClick={handleUpload}
+              disabled={loading}
+              className="w-full bg-slate-900 hover:bg-slate-850 text-white font-semibold py-3 rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm text-xs"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>{progressStep}</span>
+                </>
+              ) : (
+                <span>Upload & Analyze</span>
+              )}
+            </button>
+
+            {loading && (
+              <div className="space-y-1.5 animate-fadeIn">
+                <div className="flex justify-between text-[10px] text-slate-400 font-bold">
+                  <span>Progress</span>
+                  <span>{progressPercent}%</span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className="bg-blue-500 h-1.5 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${progressPercent}%` }}
+                  />
+                </div>
+              </div>
             )}
-          </button>
+          </div>
         )}
 
         {/* Notification Banner */}
@@ -159,8 +181,8 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
           <div
             className={`mt-4 p-3.5 rounded-xl text-xs flex items-start gap-2.5 animate-fadeIn ${
               status.type === 'success'
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-100'
-                : 'bg-rose-50 text-rose-800 border border-rose-100'
+                ? 'bg-emerald-50 text-emerald-800 border border-emerald-100/60'
+                : 'bg-rose-50 text-rose-800 border border-rose-100/60'
             }`}
           >
             {status.type === 'success' ? (
@@ -174,17 +196,17 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
       </div>
 
       {result && (
-        <div className="mt-6 pt-5 border-t border-slate-100 space-y-3 animate-slideUp">
-          <div className="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100/50">
-            <span className="text-xs font-medium text-slate-500">ATS Match Score</span>
-            <span className="text-sm font-bold text-slate-800">{result.atsScore}%</span>
+        <div className="mt-6 pt-5 border-t border-slate-100 space-y-4 animate-slideUp">
+          <div className="flex justify-between items-center bg-slate-50/80 p-3 rounded-xl border border-slate-100/60">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ATS Score</span>
+            <span className="text-xs font-bold text-slate-800">{result.atsScore}%</span>
           </div>
 
-          <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100/50">
-            <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mb-1">
+          <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-100/60">
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
               Extracted Keywords
             </p>
-            <p className="text-xs text-slate-650 leading-relaxed line-clamp-3">
+            <p className="text-xs text-slate-550 leading-relaxed line-clamp-2">
               {result.extractedText}
             </p>
           </div>

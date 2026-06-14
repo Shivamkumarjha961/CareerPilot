@@ -101,24 +101,24 @@ export default function JobTracker({
   );
 
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-md border border-slate-100/80">
-      <div className="flex items-center justify-between mb-5">
+    <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="font-bold text-lg text-slate-800">Job Application Tracker</h2>
+          <h2 className="font-bold text-base text-slate-800">Job Application Tracker</h2>
           <p className="text-xs text-slate-400">Keep track of your active job hunt</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 mb-8">
         <input
-          className="border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 p-2.5 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
+          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
           placeholder="Company Name"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
         />
 
         <input
-          className="border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 p-2.5 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
+          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
           placeholder="Role / Title"
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -126,13 +126,13 @@ export default function JobTracker({
 
         <input
           type="date"
-          className="border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 p-2.5 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
+          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
 
         <select
-          className="border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200/50 p-2.5 rounded-xl outline-none text-xs text-slate-700 transition-all cursor-pointer"
+          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all cursor-pointer"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -145,7 +145,7 @@ export default function JobTracker({
 
         <button
           onClick={addJob}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-xl transition-all duration-200 text-xs shadow-sm shadow-blue-100 hover:shadow-blue-200"
+          className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 text-xs shadow-sm hover:shadow"
         >
           Add Job
         </button>
@@ -154,7 +154,7 @@ export default function JobTracker({
       <ReminderCard jobs={jobs} />
 
       <div className="mt-8">
-        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">
+        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
           Job Applications ({sortedJobs.length})
         </h3>
         <div className="grid gap-3.5">
@@ -171,7 +171,7 @@ export default function JobTracker({
             ))
           ) : (
             <div className="text-center py-12 bg-slate-50/50 border border-dashed border-slate-200 rounded-2xl">
-              <p className="text-xs font-semibold text-slate-450">
+              <p className="text-xs font-semibold text-slate-400">
                 No jobs available. Please add a job.
               </p>
             </div>

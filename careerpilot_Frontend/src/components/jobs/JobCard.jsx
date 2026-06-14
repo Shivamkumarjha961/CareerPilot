@@ -1,13 +1,32 @@
-import { Building2, Calendar, Trash2 } from 'lucide-react';
+import { Calendar, Trash2 } from 'lucide-react';
 
 export default function JobCard({ job, onDelete, onUpdate }) {
   const statusColor = {
-    Pending: 'bg-amber-50 text-amber-700 border-amber-100 focus:ring-amber-200/50',
-    Applied: 'bg-blue-50 text-blue-700 border-blue-100 focus:ring-blue-200/50',
-    Interview: 'bg-purple-50 text-purple-700 border-purple-100 focus:ring-purple-200/50',
-    Selected: 'bg-emerald-50 text-emerald-700 border-emerald-100 focus:ring-emerald-200/50',
-    Rejected: 'bg-rose-50 text-rose-700 border-rose-100 focus:ring-rose-200/50',
+    Pending: 'bg-amber-50 text-amber-750 border-amber-100/70 focus:ring-amber-200/40',
+    Applied: 'bg-blue-50 text-blue-750 border-blue-100/70 focus:ring-blue-200/40',
+    Interview: 'bg-purple-50 text-purple-750 border-purple-100/70 focus:ring-purple-200/40',
+    Selected: 'bg-emerald-50 text-emerald-750 border-emerald-100/70 focus:ring-emerald-200/40',
+    Rejected: 'bg-rose-50 text-rose-750 border-rose-100/70 focus:ring-rose-200/40',
   };
+
+  const getLogo = (company) => {
+    const name = company || '?';
+    const initial = name.charAt(0).toUpperCase();
+    const index = name.length % 5;
+    const styles = [
+      'bg-blue-50/70 text-blue-600 border-blue-100/40',
+      'bg-indigo-50/70 text-indigo-600 border-indigo-100/40',
+      'bg-purple-50/70 text-purple-600 border-purple-100/40',
+      'bg-sky-50/70 text-sky-650 border-sky-100/40',
+      'bg-cyan-50/70 text-cyan-600 border-cyan-100/40'
+    ];
+    return {
+      char: initial,
+      colorClass: styles[index]
+    };
+  };
+
+  const logoDetails = getLogo(job.company);
 
   const formattedDate = () => {
     if (!job.date) return 'No date set';
@@ -25,28 +44,29 @@ export default function JobCard({ job, onDelete, onUpdate }) {
   };
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-slate-200/80 transition-all duration-300 flex justify-between items-center group">
-      <div className="flex items-center gap-4">
-        <div className="p-3 bg-slate-50 border border-slate-100 text-slate-500 rounded-xl group-hover:bg-slate-100 transition-colors duration-200">
-          <Building2 className="w-5 h-5" />
+    <div className="bg-white p-4.5 rounded-2xl border border-slate-100/80 hover:shadow-md hover:border-slate-200/60 transition-all duration-300 flex justify-between items-center group">
+      <div className="flex items-center gap-4.5">
+        {/* Dynamic Logo Circle */}
+        <div className={`w-11 h-11 flex items-center justify-center rounded-full border text-sm font-black shrink-0 shadow-sm ${logoDetails.colorClass}`}>
+          {logoDetails.char}
         </div>
         <div>
-          <h3 className="font-bold text-slate-800 text-base">{job.company}</h3>
-          <p className="text-slate-500 text-sm font-medium mt-0.5">{job.role}</p>
+          <h3 className="font-bold text-slate-800 text-sm">{job.company}</h3>
+          <p className="text-slate-400 text-xs font-semibold mt-0.5">{job.role}</p>
         </div>
       </div>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-4.5">
         <div className="hidden sm:flex items-center gap-1.5 text-slate-400">
-          <Calendar className="w-4 h-4" />
-          <span className="text-xs font-semibold">{formattedDate()}</span>
+          <Calendar className="w-3.5 h-3.5" />
+          <span className="text-[10px] font-bold">{formattedDate()}</span>
         </div>
 
-        <div className="flex flex-col items-end gap-1.5">
+        <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
           <select
             value={job.status}
             onChange={(e) => onUpdate(e.target.value)}
-            className={`text-xs font-bold rounded-full border px-3 py-1 cursor-pointer outline-none focus:ring-2 transition-all ${
+            className={`text-[10px] font-extrabold rounded-full border px-3 py-1 cursor-pointer outline-none focus:ring-2 transition-all ${
               statusColor[job.status] || 'bg-slate-50 text-slate-700 border-slate-200'
             }`}
           >
@@ -59,10 +79,10 @@ export default function JobCard({ job, onDelete, onUpdate }) {
 
           <button
             onClick={onDelete}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 transition-all duration-200 opacity-0 group-hover:opacity-100"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50/50 transition-all duration-200 opacity-0 group-hover:opacity-100"
             title="Delete Application"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>

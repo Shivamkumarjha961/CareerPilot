@@ -150,36 +150,40 @@ export default function Dashboard() {
 
   return (
     <div className="bg-[#F8FAFC] text-slate-800 min-h-screen flex flex-col font-sans">
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full space-y-8 animate-fadeIn">
+      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full space-y-10 animate-fadeIn">
         
         <Navbar jobs={jobs} />
 
-        {/* Hero Banner Section */}
-        <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl p-8 md:p-12 text-white shadow-md relative overflow-hidden">
-          <div className="absolute inset-0 bg-white/[0.03] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="inline-block bg-white/10 backdrop-blur-md text-white border border-white/20 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">
-              Career Management Dashboard
+        {/* Hero Section */}
+        <div className="bg-white border border-slate-100/80 rounded-3xl p-8 md:p-14 shadow-sm relative overflow-hidden">
+          {/* Subtle glow highlights */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-60 h-60 bg-indigo-50/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
+
+          <div className="relative z-10 max-w-3xl space-y-5">
+            <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100/50 px-3.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase">
+              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+              AI Career Preparation Engine
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-              CareerPilot
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.1]">
+              Career<span className="bg-gradient-to-r from-blue-600 to-indigo-650 bg-clip-text text-transparent">Pilot</span>
             </h1>
-            <p className="text-lg md:text-xl font-medium text-blue-100/90">
+            <p className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">
               AI-Powered Placement Preparation Platform
             </p>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed">
+            <p className="text-sm md:text-base text-slate-500 leading-relaxed max-w-2xl">
               Track applications, analyze resumes, evaluate GitHub profiles, and get AI-powered career insights. Let our smart agents optimize your pipeline and guide you to your dream job.
             </p>
-            <div className="flex gap-3 pt-3 flex-wrap">
+            <div className="flex gap-3 pt-2 flex-wrap">
               <button
                 onClick={() => document.getElementById('resume-section')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white text-blue-600 hover:bg-slate-50 font-bold px-6 py-3 rounded-xl transition-all duration-200 text-xs shadow-sm cursor-pointer"
+                className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-200 text-xs shadow-sm hover:shadow shadow-slate-900/10 cursor-pointer flex items-center gap-1.5"
               >
                 Upload Resume
               </button>
               <button
                 onClick={() => document.getElementById('github-section')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 hover:bg-white/25 text-white border border-white/20 font-semibold px-6 py-3 rounded-xl transition-all duration-200 text-xs cursor-pointer"
+                className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 font-bold px-6 py-3.5 rounded-xl transition-all duration-200 text-xs shadow-sm cursor-pointer"
               >
                 Analyze GitHub
               </button>
