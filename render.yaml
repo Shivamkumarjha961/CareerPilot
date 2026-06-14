@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: careerpilot-backend
+    runtime: node
+    repo: https://github.com/Shivamkumarjha961/CareerPilot
+    rootDir: careerpilot_Backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: FRONTEND_URL
+        value: https://careerpilot-frontend-alpha.vercel.app
