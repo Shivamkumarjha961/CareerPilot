@@ -37,7 +37,21 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
       const result = await response.json();
 
       if (!response.ok) {
-        setStatus({ type: 'error', text: result.error || 'GitHub fetch failed' });
+        // Sanitize and map backend errors to clear, professional user-facing messages
+        let userFriendlyError = 'GitHub profile evaluation failed. Please try again.';
+        if (result.error) {
+          const lowerError = result.error.toLowerCase();
+          if (lowerError.includes('rate limit')) {
+            userFriendlyError = 'GitHub analysis rate limit reached. Please try again in a while.';
+          } else if (lowerError.includes('not found')) {
+            userFriendlyError = 'The specified GitHub profile username could not be found.';
+          } else if (lowerError.includes('auth') || lowerError.includes('token') || lowerError.includes('config')) {
+            userFriendlyError = 'GitHub evaluation service is temporarily unavailable due to a server configuration error.';
+          } else {
+            userFriendlyError = result.error;
+          }
+        }
+        setStatus({ type: 'error', text: userFriendlyError });
         setLoading(false);
         return;
       }
@@ -50,8 +64,7 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
 
       setStatus({ type: 'success', text: 'GitHub profile analyzed successfully!' });
     } catch (error) {
-      console.error(error);
-      setStatus({ type: 'error', text: 'Server unavailable. Please try again.' });
+      setStatus({ type: 'error', text: 'GitHub service is currently unreachable. Please try again later.' });
     } finally {
       setLoading(false);
     }
