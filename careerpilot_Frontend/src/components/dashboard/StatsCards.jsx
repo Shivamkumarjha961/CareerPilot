@@ -45,18 +45,18 @@ export default function StatsCards({ atsScore, githubScore, applications }) {
           >
             <div className="flex justify-between items-start gap-4">
               <div>
-                <span className="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-wider block">
+                <span className="text-slate-500 dark:text-slate-350 text-xs font-extrabold uppercase tracking-wider block">
                   {item.title}
                 </span>
-                <h2 className="text-2xl md:text-3xl font-black text-slate-800 dark:text-slate-100 mt-2 tracking-tight">
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mt-2.5 tracking-tight">
                   {item.value}
                 </h2>
               </div>
-              <div className={`p-2.5 rounded-xl border transition-colors duration-200 shrink-0 ${item.colorClass}`}>
-                <IconComponent className="w-4 h-4" />
+              <div className={`p-3 rounded-xl border transition-colors duration-200 shrink-0 ${item.colorClass}`}>
+                <IconComponent className="w-5 h-5" />
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-3 pt-3 border-t border-slate-50 dark:border-slate-800/60 group-hover:text-slate-550 dark:group-hover:text-slate-400 transition-colors">
+            <p className="text-xs text-slate-500 dark:text-slate-300 font-semibold mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
               {item.description}
             </p>
           </div>

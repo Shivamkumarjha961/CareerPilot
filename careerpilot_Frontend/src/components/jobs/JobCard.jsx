@@ -44,45 +44,45 @@ export default function JobCard({ job, onDelete, onUpdate }) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-100/80 dark:border-slate-800 hover:shadow-md hover:border-slate-200/60 dark:hover:border-slate-700/80 transition-all duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 group text-left">
+    <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-slate-350 dark:hover:border-slate-700/80 transition-all duration-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4.5 group text-left shadow-sm">
       <div className="flex items-center gap-4.5 min-w-0">
         {/* Dynamic Logo Circle */}
-        <div className={`w-12 h-12 flex items-center justify-center rounded-full border text-sm font-black shrink-0 shadow-sm ${logoDetails.colorClass}`}>
+        <div className={`w-13 h-13 flex items-center justify-center rounded-full border text-base font-black shrink-0 shadow-sm ${logoDetails.colorClass}`}>
           {logoDetails.char}
         </div>
         <div className="min-w-0">
-          <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm truncate">{job.company}</h3>
-          <p className="text-slate-450 dark:text-slate-400 text-xs font-semibold mt-0.5 truncate">{job.role}</p>
+          <h3 className="font-extrabold text-slate-900 dark:text-white text-base truncate">{job.company}</h3>
+          <p className="text-slate-600 dark:text-slate-300 text-sm font-bold mt-0.5 truncate">{job.role}</p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between sm:justify-end gap-4.5 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-50 dark:border-slate-850">
-        <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
-          <Calendar className="w-3.5 h-3.5" />
-          <span className="text-[10px] font-bold">{formattedDate()}</span>
+      <div className="flex items-center justify-between sm:justify-end gap-5 w-full sm:w-auto pt-2.5 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800/85">
+        <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 shrink-0">
+          <Calendar className="w-4 h-4" />
+          <span className="text-xs font-bold">{formattedDate()}</span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5 shrink-0">
           <select
             value={job.status}
             onChange={(e) => onUpdate(e.target.value)}
-            className={`text-[10px] font-extrabold rounded-full border px-3 py-1 cursor-pointer outline-none focus:ring-2 transition-all ${
+            className={`text-xs font-black rounded-full border px-3.5 py-1.5 cursor-pointer outline-none focus:ring-2 transition-all ${
               statusColor[job.status] || 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
             }`}
           >
-            <option value="Pending" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-medium">Pending</option>
-            <option value="Applied" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-medium">Applied</option>
-            <option value="Interview" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-medium">Interview</option>
-            <option value="Selected" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-medium">Selected</option>
-            <option value="Rejected" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-medium">Rejected</option>
+            <option value="Pending" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-bold">Pending</option>
+            <option value="Applied" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-bold">Applied</option>
+            <option value="Interview" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-bold">Interview</option>
+            <option value="Selected" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-bold">Selected</option>
+            <option value="Rejected" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900 font-bold">Rejected</option>
           </select>
 
           <button
             onClick={onDelete}
-            className="p-1.5 rounded-lg text-slate-450 dark:text-slate-500 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-all duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 cursor-pointer"
+            className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-all duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100 cursor-pointer"
             title="Delete Application"
           >
-            <Trash2 className="w-3.5 h-3.5" />
+            <Trash2 className="w-4.5 h-4.5" />
           </button>
         </div>
       </div>

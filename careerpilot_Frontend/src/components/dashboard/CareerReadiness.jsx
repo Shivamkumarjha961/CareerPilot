@@ -76,51 +76,51 @@ export default function CareerReadiness({ atsScore = 0, githubScore = 0, applica
               />
             </svg>
             <div className="absolute flex flex-col items-center">
-              <span className="text-3xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{readinessScore}%</span>
-              <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider mt-0.5">Overall Index</span>
+              <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{readinessScore}%</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-extrabold uppercase tracking-wider mt-0.5">Overall Index</span>
             </div>
           </div>
           
           <div className="mt-4">
-            <span className={`inline-block text-[10px] font-bold px-3 py-1 rounded-full border ${badgeStyle}`}>
+            <span className={`inline-block text-xs font-black px-3.5 py-1 rounded-full border ${badgeStyle}`}>
               {badgeText}
             </span>
           </div>
         </div>
 
         {/* Right Insights and Action Recommendations Panel */}
-        <div className="md:col-span-8 space-y-5">
+        <div className="md:col-span-8 space-y-6">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-550 dark:text-indigo-400" />
-              <h2 className="font-bold text-base text-slate-800 dark:text-slate-150">Career Readiness Centerpiece</h2>
+              <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <h2 className="font-extrabold text-lg text-slate-900 dark:text-white">Career Readiness Centerpiece</h2>
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-450 font-medium leading-relaxed">
+            <p className="text-sm text-slate-500 dark:text-slate-350 font-semibold leading-relaxed">
               This score aggregates metrics from your resume parsing profile, code repo evaluations, and overall job tracking application pipeline.
             </p>
           </div>
 
-          <div className="p-4 bg-slate-50/50 dark:bg-slate-850/40 border border-slate-100 dark:border-slate-800 rounded-2xl flex gap-3 items-start">
-            <TrendingUp className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-2xl flex gap-3 items-start">
+            <TrendingUp className="w-4.5 h-4.5 text-indigo-500 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Placement Insight</p>
-              <p className="text-xs text-slate-655 dark:text-slate-300 font-semibold leading-normal mt-0.5">{feedback}</p>
+              <p className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">Placement Insight</p>
+              <p className="text-sm text-slate-700 dark:text-slate-200 font-bold leading-normal mt-0.5">{feedback}</p>
             </div>
           </div>
 
           <div className="space-y-2.5">
-            <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Recommended Milestones</p>
+            <p className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider">Recommended Milestones</p>
             <div className="space-y-2">
               {recommendations.map((rec, i) => (
                 <div key={i} className="flex items-center gap-2.5">
                   <div className="shrink-0 mt-0.5">
                     {rec.completed ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 fill-emerald-50/30 dark:fill-emerald-950/20" />
+                      <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500 fill-emerald-50/30 dark:fill-emerald-950/20" />
                     ) : (
-                      <div className="w-4 h-4 rounded-full border-2 border-slate-200 dark:border-slate-700" />
+                      <div className="w-4.5 h-4.5 rounded-full border-2 border-slate-350 dark:border-slate-700" />
                     )}
                   </div>
-                  <span className={`text-xs font-medium ${rec.completed ? 'text-slate-400 dark:text-slate-500 line-through' : 'text-slate-650 dark:text-slate-300'}`}>
+                  <span className={`text-sm font-bold ${rec.completed ? 'text-slate-400 dark:text-slate-500 line-through' : 'text-slate-700 dark:text-slate-200'}`}>
                     {rec.text}
                   </span>
                 </div>

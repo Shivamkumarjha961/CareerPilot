@@ -104,17 +104,27 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
             <FileText className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <h2 className="font-bold text-base text-slate-800 dark:text-slate-100">Resume ATS Checker</h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500">Evaluate resume compatibility</p>
+            <h2 className="font-extrabold text-lg text-slate-900 dark:text-white">Resume ATS Checker</h2>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">Evaluate resume compatibility</p>
           </div>
         </div>
 
         {/* Upload Dropzone */}
         {!file ? (
-          <label className="group flex flex-col items-center justify-center border border-dashed border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl p-7 cursor-pointer bg-slate-50/50 dark:bg-slate-850/25 hover:bg-blue-50/5 transition-all duration-200">
-            <UploadCloud className="w-7 h-7 text-slate-400 group-hover:text-blue-500 transition-colors duration-200 mb-2" />
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Choose Resume file</span>
-            <span className="text-[10px] text-slate-400 dark:text-slate-500 mt-1">PDF, DOC, DOCX up to 10MB</span>
+          <label className="group flex flex-col items-center justify-center border border-dashed border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl p-7 cursor-pointer bg-slate-50 dark:bg-slate-850/20 hover:bg-blue-50/5 transition-all duration-200">
+            <div className="mb-4 relative w-16 h-16 bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl flex items-center justify-center transition-all duration-350 group-hover:scale-105">
+              <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <path d="M12 18v-6"/>
+                <polyline points="9 15 12 12 15 15"/>
+              </svg>
+              <div className="absolute -bottom-1 -right-1 bg-blue-600 text-white rounded-full p-1 border-2 border-white dark:border-slate-900">
+                <UploadCloud className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            <span className="text-sm font-extrabold text-slate-850 dark:text-slate-200">Choose Resume file</span>
+            <span className="text-xs text-slate-500 dark:text-slate-450 mt-1">PDF, DOC, DOCX up to 10MB</span>
             <input
               type="file"
               accept=".pdf,.doc,.docx"
@@ -147,7 +157,7 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
             <button
               onClick={handleUpload}
               disabled={loading}
-              className="w-full bg-slate-900 dark:bg-slate-100 hover:bg-slate-850 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-semibold py-3 rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm text-xs cursor-pointer"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-650 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold py-3.5 rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-blue-500/10 text-sm cursor-pointer"
             >
               {loading ? (
                 <>
@@ -212,16 +222,16 @@ export default function ResumeUpload({ setAtsScore, setResumeText }) {
 
       {result && (
         <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 space-y-4 animate-slideUp">
-          <div className="flex justify-between items-center bg-slate-50/80 dark:bg-slate-850/20 p-3 rounded-xl border border-slate-100/60 dark:border-slate-800">
-            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">ATS Score</span>
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-100">{result.atsScore}%</span>
+          <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
+            <span className="text-xs font-black text-slate-550 dark:text-slate-400 uppercase tracking-wider">ATS Score</span>
+            <span className="text-sm font-black text-blue-600 dark:text-blue-400">{result.atsScore}%</span>
           </div>
 
-          <div className="bg-slate-50/80 dark:bg-slate-850/20 p-3.5 rounded-xl border border-slate-100/60 dark:border-slate-800 text-left">
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider mb-1">
+          <div className="bg-slate-50 dark:bg-slate-800/40 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 text-left">
+            <p className="text-xs text-slate-550 dark:text-slate-400 font-black uppercase tracking-wider mb-1.5">
               Extracted Keywords
             </p>
-            <p className="text-xs text-slate-550 dark:text-slate-300 leading-relaxed line-clamp-2">
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-200 leading-relaxed line-clamp-2">
               {result.extractedText}
             </p>
           </div>

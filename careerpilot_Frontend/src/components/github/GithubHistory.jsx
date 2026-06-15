@@ -28,38 +28,38 @@ export default function GithubHistory() {
           <Github className="w-5 h-5" />
         </div>
         <div className="text-left">
-          <h2 className="font-bold text-base text-slate-800 dark:text-slate-100">GitHub History</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500">Previous profile evaluation records</p>
+          <h2 className="font-extrabold text-lg text-slate-900 dark:text-white">GitHub History</h2>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">Previous profile evaluation records</p>
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-6 text-xs text-slate-400 dark:text-slate-500">Loading history...</div>
+        <div className="text-center py-6 text-sm text-slate-500 dark:text-slate-400 font-bold">Loading history...</div>
       ) : history.length > 0 ? (
-        <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1">
+        <div className="space-y-4">
           {history.map((item, index) => (
             <div
               key={index}
-              className="bg-slate-50/50 dark:bg-slate-850/20 hover:bg-slate-50 dark:hover:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/80 hover:border-slate-200 dark:hover:border-slate-700/80 transition-all duration-200 text-left"
+              className="bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800/60 p-4.5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700/80 transition-all duration-200 text-left shadow-sm flex flex-col gap-3"
             >
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-center">
                 <div className="min-w-0">
-                  <p className="font-bold text-xs text-slate-800 dark:text-slate-200 truncate">@{item.username}</p>
-                  <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                      <BookOpen className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                  <p className="font-black text-sm text-slate-900 dark:text-white">@{item.username}</p>
+                  <div className="flex items-center gap-3.5 mt-2 flex-wrap">
+                    <span className="text-xs font-bold text-slate-600 dark:text-slate-350 flex items-center gap-1.5">
+                      <BookOpen className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                       <span>{item.repos} Repos</span>
                     </span>
-                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                      <Users className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                    <span className="text-xs font-bold text-slate-605 dark:text-slate-350 flex items-center gap-1.5">
+                      <Users className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                       <span>{item.followers} Followers</span>
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-550 shrink-0">
-                  <Calendar className="w-3.5 h-3.5" />
-                  <span className="text-[10px] font-semibold">
+                <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 shrink-0">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-xs font-bold">
                     {new Date(item.createdAt).toLocaleDateString(undefined, {
                       month: 'short',
                       day: 'numeric',

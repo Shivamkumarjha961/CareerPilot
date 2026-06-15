@@ -105,21 +105,21 @@ export default function JobTracker({
     <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
         <div className="text-left">
-          <h2 className="font-bold text-base text-slate-800 dark:text-slate-100">Job Application Tracker</h2>
-          <p className="text-xs text-slate-400 dark:text-slate-500">Keep track of your active job hunt</p>
+          <h2 className="font-extrabold text-lg text-slate-900 dark:text-white">Job Application Tracker</h2>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400">Keep track of your active job hunt</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3.5 mb-8">
         <input
-          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3.5 rounded-xl outline-none text-sm font-semibold text-slate-855 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
           placeholder="Company Name"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
         />
 
         <input
-          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3.5 rounded-xl outline-none text-sm font-semibold text-slate-855 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
           placeholder="Role / Title"
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -127,13 +127,13 @@ export default function JobTracker({
 
         <input
           type="date"
-          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3.5 rounded-xl outline-none text-sm font-semibold text-slate-855 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
 
         <select
-          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all cursor-pointer"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3.5 rounded-xl outline-none text-sm font-semibold text-slate-855 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all cursor-pointer"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -146,7 +146,7 @@ export default function JobTracker({
 
         <button
           onClick={addJob}
-          className="bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-bold py-3 px-4 rounded-xl transition-all duration-200 text-xs shadow-sm hover:shadow cursor-pointer"
+          className="bg-gradient-to-r from-blue-600 to-indigo-650 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold py-3.5 px-6 rounded-xl transition-all duration-200 text-sm shadow-md shadow-blue-500/10 cursor-pointer"
         >
           Add Job
         </button>
@@ -155,7 +155,7 @@ export default function JobTracker({
       <ReminderCard jobs={jobs} />
 
       <div className="mt-8">
-        <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 text-left">
+        <h3 className="text-sm font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4 text-left">
           Job Applications ({sortedJobs.length})
         </h3>
         <div className="grid gap-3.5">

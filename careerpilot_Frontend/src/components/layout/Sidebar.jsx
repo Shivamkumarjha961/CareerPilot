@@ -51,8 +51,8 @@ export default function Sidebar({ isOpen, onClose, activeSection = 'dashboard' }
                 <Compass className="w-5 h-5" />
               </div>
               <div>
-                <h1 className="font-black text-slate-800 dark:text-slate-100 text-base tracking-tight">CareerPilot</h1>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">AI Platform</p>
+                <h1 className="font-black text-slate-900 dark:text-white text-lg tracking-tight">CareerPilot</h1>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-extrabold uppercase tracking-wider">AI Platform</p>
               </div>
             </div>
             {/* Close Button on Mobile */}
@@ -72,9 +72,9 @@ export default function Sidebar({ isOpen, onClose, activeSection = 'dashboard' }
                 <button
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
-                  className="w-full flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/40 rounded-xl transition-all duration-200 text-xs font-bold text-left cursor-pointer"
+                  className="w-full flex items-center gap-3.5 px-3.5 py-3.5 text-slate-650 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-xl transition-all duration-200 text-sm font-extrabold text-left cursor-pointer"
                 >
-                  <Icon className="w-4 h-4 shrink-0" />
+                  <Icon className="w-4.5 h-4.5 shrink-0" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -83,16 +83,16 @@ export default function Sidebar({ isOpen, onClose, activeSection = 'dashboard' }
         </div>
 
         {/* User profile actions at the bottom */}
-        <div className="border-t border-slate-50 dark:border-slate-800/50 pt-5 space-y-4">
+        <div className="border-t border-slate-100 dark:border-slate-800/50 pt-5 space-y-4">
           <div className="flex items-center gap-3 px-2">
-            <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-600 dark:text-slate-300 text-xs uppercase border border-slate-200/50 dark:border-slate-700/50">
+            <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-slate-700 dark:text-slate-200 text-sm uppercase border border-slate-200/50 dark:border-slate-700/50 shrink-0">
               {user?.name?.charAt(0) || user?.fullName?.charAt(0) || 'U'}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">
+              <p className="text-sm font-extrabold text-slate-900 dark:text-slate-100 truncate">
                 {user?.name || user?.fullName || 'User'}
               </p>
-              <p className="text-[10px] text-slate-450 dark:text-slate-500 truncate">
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400 truncate">
                 {user?.email}
               </p>
             </div>
@@ -100,9 +100,9 @@ export default function Sidebar({ isOpen, onClose, activeSection = 'dashboard' }
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2.5 text-slate-400 dark:text-slate-500 hover:text-rose-500 dark:hover:text-rose-450 hover:bg-rose-50/30 dark:hover:bg-rose-950/20 rounded-xl transition-all duration-200 text-xs font-bold text-left cursor-pointer"
+            className="w-full flex items-center gap-3 px-3.5 py-3 text-slate-500 dark:text-slate-450 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-xl transition-all duration-200 text-sm font-extrabold text-left cursor-pointer"
           >
-            <LogOut className="w-4 h-4 shrink-0" />
+            <LogOut className="w-4.5 h-4.5 shrink-0" />
             <span>Sign Out</span>
           </button>
         </div>

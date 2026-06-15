@@ -65,32 +65,32 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
             <Github className="w-5 h-5" />
           </div>
           <div className="text-left">
-            <h2 className="font-bold text-base text-slate-800 dark:text-slate-100">GitHub Evaluation</h2>
-            <p className="text-xs text-slate-400 dark:text-slate-500">Analyze repo/follower stats</p>
+            <h2 className="font-extrabold text-lg text-slate-900 dark:text-white">GitHub Evaluation</h2>
+            <p className="text-xs font-bold text-slate-500 dark:text-slate-400">Analyze repo/follower stats</p>
           </div>
         </div>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-[10px] font-bold text-slate-450 dark:text-slate-500 uppercase tracking-wider mb-2 text-left">
+            <label className="block text-xs font-black text-slate-550 dark:text-slate-400 uppercase tracking-wider mb-2 text-left">
               GitHub Profile Name
             </label>
             <div className="relative">
               <input
-                className="w-full border border-slate-200 dark:border-slate-800 focus:border-purple-500 dark:focus:border-purple-550 focus:ring-2 focus:ring-purple-200/50 dark:focus:ring-purple-900/30 p-2.5 pl-9 rounded-xl outline-none text-xs transition-all text-slate-855 dark:text-slate-200 bg-white dark:bg-slate-950 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                className="w-full border border-slate-200 dark:border-slate-800 focus:border-purple-550 dark:focus:border-purple-550 focus:ring-2 focus:ring-purple-200/50 dark:focus:ring-purple-900/30 p-3 pl-10 rounded-xl outline-none text-sm font-bold transition-all text-slate-855 dark:text-slate-200 bg-white dark:bg-slate-950 placeholder:text-slate-400 dark:placeholder:text-slate-655"
                 placeholder="e.g. torvalds"
                 value={github}
                 disabled={loading}
                 onChange={(e) => setGithub(e.target.value)}
               />
-              <Github className="w-4 h-4 text-slate-400 dark:text-slate-505 absolute left-3 top-3.5" />
+              <Github className="w-4.5 h-4.5 text-slate-405 dark:text-slate-500 absolute left-3.5 top-3.5" />
             </div>
           </div>
 
           <button
             onClick={handleAnalyze}
             disabled={loading}
-            className="w-full bg-slate-900 dark:bg-slate-100 hover:bg-slate-850 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-semibold py-3 rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm text-xs cursor-pointer"
+            className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-extrabold py-3.5 rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md shadow-purple-500/10 text-sm cursor-pointer"
           >
             {loading ? (
               <>
@@ -148,6 +148,21 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
         </div>
       )}
 
+      {/* Empty State Illustration */}
+      {!data && !loading && (
+        <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 text-center space-y-3 animate-fadeIn">
+          <div className="relative w-16 h-16 bg-purple-50/50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900/30 rounded-2xl flex items-center justify-center mx-auto">
+            <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </div>
+          <div>
+            <p className="text-xs font-black text-slate-800 dark:text-slate-200">Awaiting GitHub Input</p>
+            <p className="text-[11px] font-bold text-slate-500 dark:text-slate-450 mt-0.5">Analyze repository contributions and metrics</p>
+          </div>
+        </div>
+      )}
+
       {data && (
         <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 space-y-4 animate-slideUp">
           <div className="flex items-center justify-between">
@@ -156,39 +171,39 @@ export default function GithubAnalyzer({ setGithubScore, setGithubData }) {
                 <img
                   src={data.avatar}
                   alt={data.username}
-                  className="w-10 h-10 rounded-full ring-2 ring-purple-100 dark:ring-purple-950 shrink-0"
+                  className="w-11 h-11 rounded-full ring-2 ring-purple-100 dark:ring-purple-950 shrink-0"
                 />
               )}
               <div className="min-w-0 text-left">
-                <h3 className="font-bold text-slate-800 dark:text-slate-200 text-xs truncate">@{data.username}</h3>
+                <h3 className="font-black text-slate-900 dark:text-white text-sm truncate">@{data.username}</h3>
                 <a
                   href={data.profile}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[10px] text-purple-650 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-0.5 font-bold mt-0.5 cursor-pointer"
+                  className="text-xs text-purple-650 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-0.5 font-black mt-0.5 cursor-pointer"
                 >
                   <span>View Profile</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-2 text-center">
-            <div className="bg-slate-50 dark:bg-slate-850/20 p-2.5 rounded-xl border border-slate-100/50 dark:border-slate-800">
-              <BookOpen className="w-4 h-4 text-slate-400 dark:text-slate-500 mx-auto mb-1" />
-              <p className="text-slate-400 dark:text-slate-500 text-[9px] uppercase font-bold">Repos</p>
-              <p className="font-extrabold text-slate-800 dark:text-slate-100 text-xs mt-0.5">{data.repos}</p>
+            <div className="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+              <BookOpen className="w-5 h-5 text-slate-500 dark:text-slate-400 mx-auto mb-1.5" />
+              <p className="text-slate-500 dark:text-slate-400 text-xs font-black uppercase">Repos</p>
+              <p className="font-extrabold text-slate-900 dark:text-white text-sm mt-0.5">{data.repos}</p>
             </div>
-            <div className="bg-slate-50 dark:bg-slate-850/20 p-2.5 rounded-xl border border-slate-100/50 dark:border-slate-800">
-              <Users className="w-4 h-4 text-slate-400 dark:text-slate-500 mx-auto mb-1" />
-              <p className="text-slate-400 dark:text-slate-500 text-[9px] uppercase font-bold">Followers</p>
-              <p className="font-extrabold text-slate-800 dark:text-slate-100 text-xs mt-0.5">{data.followers}</p>
+            <div className="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+              <Users className="w-5 h-5 text-slate-500 dark:text-slate-400 mx-auto mb-1.5" />
+              <p className="text-slate-500 dark:text-slate-400 text-xs font-black uppercase">Followers</p>
+              <p className="font-extrabold text-slate-900 dark:text-white text-sm mt-0.5">{data.followers}</p>
             </div>
-            <div className="bg-slate-50 dark:bg-slate-850/20 p-2.5 rounded-xl border border-slate-100/50 dark:border-slate-800">
-              <Users className="w-4 h-4 text-slate-400 dark:text-slate-500 mx-auto mb-1" />
-              <p className="text-slate-400 dark:text-slate-500 text-[9px] uppercase font-bold">Following</p>
-              <p className="font-extrabold text-slate-800 dark:text-slate-100 text-xs mt-0.5">{data.following}</p>
+            <div className="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+              <Users className="w-5 h-5 text-slate-500 dark:text-slate-400 mx-auto mb-1.5" />
+              <p className="text-slate-500 dark:text-slate-400 text-xs font-black uppercase">Following</p>
+              <p className="font-extrabold text-slate-900 dark:text-white text-sm mt-0.5">{data.following}</p>
             </div>
           </div>
         </div>
