@@ -42,44 +42,44 @@ export default function ResumeHistory() {
   const highestScore = Math.max(...resumes.map((r) => r.atsScore || 0), 0);
 
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-md border border-slate-100/80 hover:shadow-lg transition-all duration-300">
+    <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-md border border-slate-100/80 dark:border-slate-800 hover:shadow-lg transition-all duration-300">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+        <div className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400">
           <FileText className="w-5 h-5" />
         </div>
-        <div>
-          <h2 className="font-bold text-base text-slate-800">Resume History</h2>
-          <p className="text-xs text-slate-400">Previous ATS scans and files</p>
+        <div className="text-left">
+          <h2 className="font-bold text-base text-slate-800 dark:text-slate-100">Resume History</h2>
+          <p className="text-xs text-slate-400 dark:text-slate-500">Previous ATS scans and files</p>
         </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-6 text-xs text-slate-400">Loading history...</div>
+        <div className="text-center py-6 text-xs text-slate-400 dark:text-slate-500">Loading history...</div>
       ) : resumes.length > 0 ? (
         <div className="space-y-4 max-h-[300px] overflow-y-auto pr-1">
           {resumes.map((resume, index) => (
             <div
               key={resume._id}
-              className="bg-slate-50/50 hover:bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:border-slate-200 transition-all duration-200 flex flex-col justify-between gap-3"
+              className="bg-slate-50/50 dark:bg-slate-850/20 hover:bg-slate-50 dark:hover:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/80 hover:border-slate-200 dark:hover:border-slate-700/80 transition-all duration-200 flex flex-col justify-between gap-3 text-left"
             >
               <div className="flex justify-between items-start gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-bold text-xs text-slate-800 truncate max-w-[180px]">
+                    <p className="font-bold text-xs text-slate-800 dark:text-slate-200 truncate max-w-[180px]">
                       {resume.fileName}
                     </p>
                     {index === 0 && (
-                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30">
                         Latest
                       </span>
                     )}
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[11px] font-semibold text-slate-500">
-                      ATS Match: <span className="font-bold text-slate-800">{resume.atsScore}%</span>
+                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                      ATS Match: <span className="font-bold text-slate-800 dark:text-slate-200">{resume.atsScore}%</span>
                     </span>
                     {resume.atsScore === highestScore && highestScore > 0 && (
-                      <span className="text-[9px] font-bold text-emerald-600 flex items-center gap-0.5">
+                      <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-450 flex items-center gap-0.5">
                         <Award className="w-3 h-3" />
                         <span>Best</span>
                       </span>
@@ -91,7 +91,7 @@ export default function ResumeHistory() {
                   {/* Preview */}
                   <button
                     onClick={() => setSelectedResume(resume)}
-                    className="p-2 text-slate-450 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200"
+                    className="p-2 text-slate-450 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/25 rounded-xl transition-all duration-200 cursor-pointer"
                     title="Preview PDF"
                   >
                     <Eye className="w-4 h-4" />
@@ -102,7 +102,7 @@ export default function ResumeHistory() {
                     href={`${API_URL}/resume/file/${resume._id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-slate-450 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-200"
+                    className="p-2 text-slate-450 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/25 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center"
                     title="Download PDF"
                   >
                     <Download className="w-4 h-4" />
@@ -111,7 +111,7 @@ export default function ResumeHistory() {
                   {/* Delete */}
                   <button
                     onClick={() => deleteResume(resume._id)}
-                    className="p-2 text-slate-450 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all duration-200"
+                    className="p-2 text-slate-450 dark:text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/25 rounded-xl transition-all duration-200 cursor-pointer"
                     title="Delete"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -119,7 +119,7 @@ export default function ResumeHistory() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-400 mt-0.5">
+              <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 mt-0.5">
                 <Calendar className="w-3.5 h-3.5" />
                 <span className="text-[10px] font-semibold">
                   {new Date(resume.createdAt).toLocaleDateString(undefined, {
@@ -133,31 +133,31 @@ export default function ResumeHistory() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-slate-50/50 border border-dashed border-slate-200 rounded-2xl">
-          <p className="text-xs font-semibold text-slate-450">No resumes uploaded yet</p>
+        <div className="text-center py-12 bg-slate-50/50 dark:bg-slate-850/15 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+          <p className="text-xs font-semibold text-slate-450 dark:text-slate-500">No resumes uploaded yet</p>
         </div>
       )}
 
       {/* Full PDF Preview Modal */}
       {selectedResume && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fadeIn">
-          <div className="bg-white rounded-3xl w-full max-w-4xl h-[85vh] shadow-2xl relative flex flex-col overflow-hidden animate-slideUp">
-            <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm flex justify-center items-center z-50 p-4 animate-fadeIn">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-4xl h-[85vh] shadow-2xl relative flex flex-col overflow-hidden animate-slideUp border border-slate-100 dark:border-slate-800">
+            <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FileText className="w-5 h-5 text-blue-500" />
-                <h3 className="font-bold text-sm text-slate-800 truncate max-w-[300px]">
+                <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200 truncate max-w-[200px] sm:max-w-[300px]">
                   {selectedResume.fileName}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedResume(null)}
-                className="bg-slate-950 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200"
+                className="bg-slate-950 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 text-xs font-semibold px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
               >
                 Close Preview
               </button>
             </div>
 
-            <div className="flex-1 bg-slate-100">
+            <div className="flex-1 bg-slate-100 dark:bg-slate-950">
               <iframe
                 src={`${API_URL}/resume/file/${selectedResume._id}`}
                 width="100%"

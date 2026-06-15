@@ -102,24 +102,24 @@ export default function JobTracker({
   );
 
   return (
-    <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100">
+    <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 transition-all duration-300">
       <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="font-bold text-base text-slate-800">Job Application Tracker</h2>
-          <p className="text-xs text-slate-400">Keep track of your active job hunt</p>
+        <div className="text-left">
+          <h2 className="font-bold text-base text-slate-800 dark:text-slate-100">Job Application Tracker</h2>
+          <p className="text-xs text-slate-400 dark:text-slate-500">Keep track of your active job hunt</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 mb-8">
         <input
-          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
           placeholder="Company Name"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
         />
 
         <input
-          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
           placeholder="Role / Title"
           value={role}
           onChange={(e) => setRole(e.target.value)}
@@ -127,26 +127,26 @@ export default function JobTracker({
 
         <input
           type="date"
-          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all placeholder:text-slate-400"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-655"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
 
         <select
-          className="border border-slate-200 focus:border-slate-400 focus:ring-2 focus:ring-slate-100 p-3 rounded-xl outline-none text-xs text-slate-700 transition-all cursor-pointer"
+          className="border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 focus:ring-2 focus:ring-slate-100 dark:focus:ring-slate-900/30 p-3 rounded-xl outline-none text-xs text-slate-755 dark:text-slate-200 bg-white dark:bg-slate-950 transition-all cursor-pointer"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
-          <option value="Pending">Pending</option>
-          <option value="Applied">Applied</option>
-          <option value="Interview">Interview</option>
-          <option value="Selected">Selected</option>
-          <option value="Rejected">Rejected</option>
+          <option value="Pending" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900">Pending</option>
+          <option value="Applied" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900">Applied</option>
+          <option value="Interview" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900">Interview</option>
+          <option value="Selected" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900">Selected</option>
+          <option value="Rejected" className="text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-900">Rejected</option>
         </select>
 
         <button
           onClick={addJob}
-          className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200 text-xs shadow-sm hover:shadow"
+          className="bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-bold py-3 px-4 rounded-xl transition-all duration-200 text-xs shadow-sm hover:shadow cursor-pointer"
         >
           Add Job
         </button>
@@ -155,36 +155,36 @@ export default function JobTracker({
       <ReminderCard jobs={jobs} />
 
       <div className="mt-8">
-        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
+        <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 text-left">
           Job Applications ({sortedJobs.length})
         </h3>
         <div className="grid gap-3.5">
           {loading ? (
             <>
-              <div className="bg-white p-4.5 rounded-2xl border border-slate-100 flex justify-between items-center animate-pulse">
+              <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-100 dark:border-slate-800 flex justify-between items-center animate-pulse">
                 <div className="flex items-center gap-4.5">
-                  <div className="w-11 h-11 bg-slate-200 rounded-full shrink-0" />
-                  <div className="space-y-2">
-                    <div className="h-3.5 bg-slate-200 rounded w-28" />
-                    <div className="h-2.5 bg-slate-200 rounded w-20" />
+                  <div className="w-11 h-11 bg-slate-200 dark:bg-slate-800 rounded-full shrink-0" />
+                  <div className="space-y-2 text-left">
+                    <div className="h-3.5 bg-slate-200 dark:bg-slate-800 rounded w-28" />
+                    <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-20" />
                   </div>
                 </div>
                 <div className="flex items-center gap-4.5">
-                  <div className="h-3.5 bg-slate-200 rounded w-16 hidden sm:block" />
-                  <div className="h-6 bg-slate-250 rounded-full w-16" />
+                  <div className="h-3.5 bg-slate-200 dark:bg-slate-800 rounded w-16 hidden sm:block" />
+                  <div className="h-6 bg-slate-250 dark:bg-slate-800 rounded-full w-16" />
                 </div>
               </div>
-              <div className="bg-white p-4.5 rounded-2xl border border-slate-100 flex justify-between items-center animate-pulse">
+              <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-100 dark:border-slate-800 flex justify-between items-center animate-pulse">
                 <div className="flex items-center gap-4.5">
-                  <div className="w-11 h-11 bg-slate-200 rounded-full shrink-0" />
-                  <div className="space-y-2">
-                    <div className="h-3.5 bg-slate-200 rounded w-24" />
-                    <div className="h-2.5 bg-slate-200 rounded w-16" />
+                  <div className="w-11 h-11 bg-slate-200 dark:bg-slate-800 rounded-full shrink-0" />
+                  <div className="space-y-2 text-left">
+                    <div className="h-3.5 bg-slate-200 dark:bg-slate-800 rounded w-24" />
+                    <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded w-16" />
                   </div>
                 </div>
                 <div className="flex items-center gap-4.5">
-                  <div className="h-3.5 bg-slate-200 rounded w-16 hidden sm:block" />
-                  <div className="h-6 bg-slate-250 rounded-full w-16" />
+                  <div className="h-3.5 bg-slate-200 dark:bg-slate-800 rounded w-16 hidden sm:block" />
+                  <div className="h-6 bg-slate-250 dark:bg-slate-800 rounded-full w-16" />
                 </div>
               </div>
             </>
@@ -200,8 +200,8 @@ export default function JobTracker({
               />
             ))
           ) : (
-            <div className="text-center py-12 bg-slate-50/50 border border-dashed border-slate-200 rounded-2xl">
-              <p className="text-xs font-semibold text-slate-400">
+            <div className="text-center py-12 bg-slate-50/50 dark:bg-slate-850/15 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+              <p className="text-xs font-semibold text-slate-400 dark:text-slate-550">
                 No jobs available. Please add a job.
               </p>
             </div>
