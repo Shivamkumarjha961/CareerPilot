@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
@@ -9,6 +9,12 @@ export default function Register() {
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('loggedInUser')) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [navigate]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
