@@ -16,8 +16,27 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://careerpilot-frontend-alpha.vercel.app',
+  'https://careerpilot-frontend.vercel.app'
+].filter(Boolean);
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || '*',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.includes(origin) ||
+                      /^https:\/\/careerpilot-frontend-.*\.vercel\.app$/.test(origin) ||
+                      /^http:\/\/localhost(:\d+)?$/.test(origin) ||
+                      /^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin);
+                      
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
